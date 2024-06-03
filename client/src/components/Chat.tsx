@@ -18,6 +18,13 @@ function Chat() {
         socket.emit('join', searchParams);
     }, [search]);
 
+    useEffect(() => {
+        socket.on('message',({data})=>{
+            console.log(data)
+        })
+    }, []);
+
+
     console.log(params)
     return (
         <>

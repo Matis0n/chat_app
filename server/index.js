@@ -9,19 +9,24 @@ const app = express()
 app.use(cors({origin: '*'}))
 app.use(route)
 
-
 const server = http.createServer(app)
-const io = new Server(server,{
-    cors:{
-        origin:"*",
-        methods:["GET","POST"],
+const io = new Server(server, {
+    cors: {
+        origin: "*",
+        methods: ["GET", "POST"],
     },
 })
 
-io.on('connection',(socket)=>{
+io.on('connection', (socket) => {
+    socket.on('join', ({name, room}) => {
+        socket.join(room)
 
+        socket.emit('message', {
+            data: {user: {name: "Admin", message: `Привет ${name}`}}
+        })
+    })
 
-    io.on('disconnect',()=>{
+    io.on('disconnect', () => {
         console.log('Отключение')
     })
 })
