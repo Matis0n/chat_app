@@ -18,6 +18,14 @@ const io = new Server(server,{
     },
 })
 
+io.on('connection',(socket)=>{
+
+
+    io.on('disconnect',()=>{
+        console.log('Отключение')
+    })
+})
+
 server.listen('5000', () => {
     console.log('Сервер запущен')
 })

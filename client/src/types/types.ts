@@ -1,4 +1,4 @@
-export type FieldsType={
-    NAME: string
-    ROOM: string
-}
+export type FieldsType = {
+    NAME: string;
+    ROOM: string;
+};
