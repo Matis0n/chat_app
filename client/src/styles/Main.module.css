@@ -34,13 +34,18 @@
     border: 1px solid #03192f;
 }
 
+
 .input {
-    background: rgb(16, 77, 126);
+    background: rgb(17, 99, 166);
     width: 100%;
     height: 100%;
     color: #fff;
     text-indent: 20px;
     font-size: 16px;
+}
+
+.input::placeholder{
+    color: #d3cdcd;
 }
 
 .button {
