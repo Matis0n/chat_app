@@ -34,7 +34,7 @@ function Chat() {
 
     const leftRoom = () => {}
     const handleChange = () => {}
-    const onEmojiClick = () => setOpen(!isOpen)
+    const onEmojiClick = ({emoji}:{emoji:string}) => setMessage(`${message} ${emoji}`)
     const handleSubmit = ()=>{}
     return (
         <div className={styles.wrap}>
@@ -44,7 +44,7 @@ function Chat() {
                 <button className={styles.left} onClick={leftRoom}>Выйти из комнаты</button>
             </div>
             <div className={styles.messages}>
-                {state.map(({user}) => <div>{user.message}</div>)}
+                {state.map(({user},index) => <div key={index}>{user.message}</div>)}
             </div>
             <form className={styles.form}>
                 <div className={styles.input}>
@@ -59,10 +59,10 @@ function Chat() {
                     />
                 </div>
                 <div className={styles.emoji}>
-                    <img src={emoji} alt="emoji" onClick={onEmojiClick}/>
+                    <img src={emoji} alt="emoji" onClick={()=>setOpen(!isOpen)}/>
                     {isOpen && (
                         <div className={styles.emojies}>
-                            <EmojiPicker onEmojiClick={onEmojiClick}/>
+                            <EmojiPicker  onEmojiClick={onEmojiClick}/>
                         </div>
                     )}
                 </div>
