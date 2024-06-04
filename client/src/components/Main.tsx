@@ -6,7 +6,7 @@ import {ChangeEvent, useState} from "react";
 
 function Main() {
 
-    const [values, setValues] = useState<FieldsType>({NAME: "", ROOM: ""})
+    const [values, setValues] = useState<FieldsType>({name: "", room: ""})
 
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         const {value, name} = event.target
@@ -29,8 +29,8 @@ function Main() {
                         <input
                             type="text"
                             placeholder="Введите имя"
-                            name="NAME"
-                            value={values.NAME}
+                            name="name"
+                            value={values.name}
                             className={styles.input}
                             onChange={handleChange}
                             autoComplete="off"
@@ -41,8 +41,8 @@ function Main() {
                         <input
                             type="text"
                             placeholder="Введите название комнаты"
-                            name="ROOM"
-                            value={values.ROOM}
+                            name="room"
+                            value={values.room}
                             className={styles.input}
                             onChange={handleChange}
                             autoComplete="off"
@@ -50,7 +50,7 @@ function Main() {
                         />
                     </div>
                     <div className={styles.group}>
-                        <Link to={`/chat?name=${values.NAME}&$room=${values.ROOM}`}>
+                        <Link to={`/chat?name=${values.name}&room=${values.room}`}>
                             <button onClick={()=>handleClick} type="submit" className={styles.button}>Войти</button>
                         </Link>
                     </div>

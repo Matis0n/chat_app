@@ -1,4 +1,4 @@
 export type FieldsType = {
     name: string;
-    ROOM: string;
+    room: string;
 };
