@@ -28,7 +28,7 @@ io.on('connection', (socket) => {
         });
 
         socket.broadcast.to(user.room).emit('message',{
-            data: {user: {name: "Admin", message: `${user.name} присоединился`}}
+            data: {user: {name: "Admin", message: `${user.name} присоединил(ся/ась)`}}
         })
     })
 
