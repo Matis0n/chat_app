@@ -6,17 +6,20 @@ import {UserTypeFromServer, FieldsType} from "../types/types.ts";
 import styles from '../styles/Chat.module.css'
 import emoji from '../assets/img/emoji.svg'
 import EmojiPicker from "emoji-picker-react";
+import Messages from "./Messages.tsx";
 
 let socket = io('http://localhost:5000');
 
 type searchParamsType = Record<string, string>
 
 function Chat() {
+
+    const {search} = useLocation()
     const [state, setState] = useState<UserTypeFromServer[]>([])
-    const [params, setParams] = useState<FieldsType | searchParamsType>({room: '', user: ''});
+    const [params, setParams] = useState<FieldsType | searchParamsType>({name:'',room:''});
     const [message, setMessage] = useState<string>('')
     const [isOpen, setOpen] = useState<boolean>(false)
-    let {search} = useLocation()
+
     useEffect(() => {
         const searchParams = Object.fromEntries(new URLSearchParams(search))
         setParams(searchParams);
@@ -39,11 +42,11 @@ function Chat() {
         <div className={styles.wrap}>
             <div className={styles.header}>
                 <div className={styles.title}>Комната: {params.room}</div>
-                <div className={styles.users}>{} 0 человек в комнате</div>
+                <div className={styles.users}>{state.length} человек(а) в комнате</div>
                 <button className={styles.left} onClick={leftRoom}>Выйти из комнаты</button>
             </div>
             <div className={styles.messages}>
-                {state.map(({user},index) => <div key={index}>{user.message}</div>)}
+               <Messages messages={state} name={params.name}></Messages>
             </div>
             <form className={styles.form}>
                 <div className={styles.input}>
