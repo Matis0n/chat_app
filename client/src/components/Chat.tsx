@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import {io} from 'socket.io-client';
 import {useLocation} from "react-router-dom";
 import {UserTypeFromServer, FieldsType} from "../types/types.ts";
@@ -16,7 +16,6 @@ function Chat() {
     const [params, setParams] = useState<FieldsType | searchParamsType>({room: '', user: ''});
     const [message, setMessage] = useState<string>('')
     const [isOpen, setOpen] = useState<boolean>(false)
-
     let {search} = useLocation()
     useEffect(() => {
         const searchParams = Object.fromEntries(new URLSearchParams(search))
@@ -33,8 +32,8 @@ function Chat() {
     console.log('params', params)
 
     const leftRoom = () => {}
-    const handleChange = () => {}
-    const onEmojiClick = () => setOpen(!isOpen)
+    const handleChange = (event:ChangeEvent<HTMLInputElement>) =>setMessage(event.target.value)
+    const onEmojiClick = ({emoji}:{emoji:string}) => setMessage(`${message} ${emoji}`)
     const handleSubmit = ()=>{}
     return (
         <div className={styles.wrap}>
@@ -44,7 +43,7 @@ function Chat() {
                 <button className={styles.left} onClick={leftRoom}>Выйти из комнаты</button>
             </div>
             <div className={styles.messages}>
-                {state.map(({user}) => <div>{user.message}</div>)}
+                {state.map(({user},index) => <div key={index}>{user.message}</div>)}
             </div>
             <form className={styles.form}>
                 <div className={styles.input}>
@@ -59,10 +58,10 @@ function Chat() {
                     />
                 </div>
                 <div className={styles.emoji}>
-                    <img src={emoji} alt="emoji" onClick={onEmojiClick}/>
+                    <img src={emoji} alt="emoji" onClick={()=>setOpen(!isOpen)}/>
                     {isOpen && (
                         <div className={styles.emojies}>
-                            <EmojiPicker onEmojiClick={onEmojiClick}/>
+                            <EmojiPicker  onEmojiClick={onEmojiClick}/>
                         </div>
                     )}
                 </div>
