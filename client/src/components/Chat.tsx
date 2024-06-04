@@ -11,7 +11,6 @@ type searchParamsType = Record<string, string>
 
 function Chat() {
     const [state, setState] = useState<FieldsType[]>([])
-
     let {search} = useLocation()
     const [params, setParams] = useState<searchParamsType | null>(null);
 
