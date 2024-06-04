@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import {io} from 'socket.io-client';
 import {useLocation} from "react-router-dom";
 import {UserTypeFromServer, FieldsType} from "../types/types.ts";
@@ -16,7 +16,6 @@ function Chat() {
     const [params, setParams] = useState<FieldsType | searchParamsType>({room: '', user: ''});
     const [message, setMessage] = useState<string>('')
     const [isOpen, setOpen] = useState<boolean>(false)
-
     let {search} = useLocation()
     useEffect(() => {
         const searchParams = Object.fromEntries(new URLSearchParams(search))
@@ -33,7 +32,7 @@ function Chat() {
     console.log('params', params)
 
     const leftRoom = () => {}
-    const handleChange = () => {}
+    const handleChange = (event:ChangeEvent<HTMLInputElement>) =>setMessage(event.target.value)
     const onEmojiClick = ({emoji}:{emoji:string}) => setMessage(`${message} ${emoji}`)
     const handleSubmit = ()=>{}
     return (
