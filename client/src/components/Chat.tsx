@@ -1,4 +1,4 @@
-import {ChangeEvent, useEffect, useState} from "react";
+import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {io} from 'socket.io-client';
 import {useLocation} from "react-router-dom";
 import {StateTypeFromServer, FieldsType} from "../types/types.ts";
@@ -32,13 +32,11 @@ function Chat() {
             setState((_state) => ([..._state, data]))
         })
     }, []);
-    console.log('state', state)
-    console.log('params', params)
 
     const leftRoom = () => {}
     const handleChange = (event:ChangeEvent<HTMLInputElement>) =>setMessage(event.target.value)
     const onEmojiClick = ({emoji}:{emoji:string}) => setMessage(`${message} ${emoji}`)
-    const handleSubmit = (e:any)=>{
+    const handleSubmit = (e:FormEvent<HTMLFormElement>)=>{
         e.preventDefault()
         if(!message) return
         socket.emit('sendMessage', {message,params})
@@ -76,7 +74,7 @@ function Chat() {
                     )}
                 </div>
                 <div className={styles.button}>
-                    <input type="submit" onClick={handleSubmit} value="Отправить"/>
+                    <input type="submit" value="Отправить"/>
                 </div>
             </form>
         </div>
