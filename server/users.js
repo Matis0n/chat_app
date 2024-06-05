@@ -24,7 +24,6 @@ const getRoomUsers = (room) => users.filter((u) => u.room === room);
 
 const removeUser = (user) => {
     const found = findUser(user);
-    console.log('found', found)
     if (found) {
         users = users.filter(({room, name}) => room === found.room && name !== found.name);
     }

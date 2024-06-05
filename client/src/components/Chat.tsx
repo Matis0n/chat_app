@@ -32,8 +32,6 @@ function Chat() {
             setState((_state) => ([..._state, data]))
         })
     }, []);
-    console.log('state', state)
-    console.log('params', params)
 
     const leftRoom = () => {}
     const handleChange = (event:ChangeEvent<HTMLInputElement>) =>setMessage(event.target.value)
