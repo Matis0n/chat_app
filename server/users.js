@@ -1,8 +1,9 @@
-const { trimStr } = require("./utils");
+const {trimStr} = require("./utils");
 
 let users = [];
 
 const findUser = (user) => {
+
     const userName = trimStr(user.name);
     const userRoom = trimStr(user.room);
 
@@ -16,21 +17,19 @@ const addUser = (user) => {
 
     const currentUser = isExist || user;
 
-    return { isExist: !!isExist, user: currentUser };
+    return {isExist: !!isExist, user: currentUser};
 };
 
 const getRoomUsers = (room) => users.filter((u) => u.room === room);
 
 const removeUser = (user) => {
     const found = findUser(user);
-
+    console.log('found', found)
     if (found) {
-        users = users.filter(
-            ({ room, name }) => room === found.room && name !== found.name
-        );
+        users = users.filter(({room, name}) => room === found.room && name !== found.name);
     }
 
     return found;
 };
 
-module.exports = { addUser, findUser, getRoomUsers, removeUser };
+module.exports = {addUser, findUser, getRoomUsers, removeUser};

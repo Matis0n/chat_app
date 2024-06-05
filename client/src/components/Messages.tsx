@@ -1,23 +1,24 @@
 import styles from '../styles/Messages.module.css'
 import {FC} from "react";
-import {UserTypeFromServer} from "../types/types.ts";
+import {StateTypeFromServer} from "../types/types.ts";
 
 
-type TypeProps = {
-    messages:Array<UserTypeFromServer>
+interface IProps {
+    messages: Array<StateTypeFromServer>
     name: string;
 }
 
-const Messages:FC<TypeProps>=({messages, name})=> {
+const Messages: FC<IProps> = ({messages, name}) => {
     return (
         <div className={(styles.messages)}>
-            {messages.map(({user}, index) => {
+            {messages.map(({user,message}, index) => {
                 const itsMe = user.name.trim().toLowerCase() === name.trim().toLowerCase()
                 const className = itsMe ? styles.me : styles.user
                 return (
                     <div key={index} className={`${styles.message} ${className}`}>
                         <span className={styles.user}>{user.name}</span>
-                        <div className={styles.text}>{user.message}</div>
+                        {user.name === "Admin" && <div className={styles.text}>{user.message}</div>
+                        || name && <div className={styles.text}>{message}</div>}
                     </div>
                 )
             })}
