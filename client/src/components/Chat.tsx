@@ -1,6 +1,6 @@
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import {io} from 'socket.io-client';
-import {useLocation} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import {StateTypeFromServer, FieldsType} from "../types/types.ts";
 
 import styles from '../styles/Chat.module.css'
@@ -16,6 +16,7 @@ type searchParamsType = Record<string, string>
 function Chat() {
 
     const {search} = useLocation()
+    const navigate = useNavigate();
     const [state, setState] = useState<StateTypeFromServer[]>([])
     const [params, setParams] = useState<FieldsType | searchParamsType>({name:'',room:''});
     const [message, setMessage] = useState<string>('')
@@ -35,13 +36,16 @@ function Chat() {
     }, []);
 
     useEffect(() => {
-        socket.on('joinRoom', ({data:{users}}) => {
+        socket.on('room', ({data:{users}}) => {
             setUsersCount(users.length)
         })
     }, []);
 
-
-    const leftRoom = () => {}
+    console.log(state)
+    const leftRoom = () => {
+        socket.emit('leftRoom',{params})
+        navigate('/')
+    }
     const handleChange = (event:ChangeEvent<HTMLInputElement>) =>setMessage(event.target.value)
     const onEmojiClick = ({emoji}:{emoji:string}) => setMessage(`${message} ${emoji}`)
     const handleSubmit = (e:FormEvent<HTMLFormElement>)=>{
