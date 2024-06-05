@@ -20,6 +20,7 @@ function Chat() {
     const [params, setParams] = useState<FieldsType | searchParamsType>({name:'',room:''});
     const [message, setMessage] = useState<string>('')
     const [isOpen, setOpen] = useState<boolean>(false)
+    const [usersCount, setUsersCount] = useState<number>(0)
 
     useEffect(() => {
         const searchParams = Object.fromEntries(new URLSearchParams(search))
@@ -32,6 +33,13 @@ function Chat() {
             setState((_state) => ([..._state, data]))
         })
     }, []);
+
+    useEffect(() => {
+        socket.on('joinRoom', ({data:{users}}) => {
+            setUsersCount(users.length)
+        })
+    }, []);
+
 
     const leftRoom = () => {}
     const handleChange = (event:ChangeEvent<HTMLInputElement>) =>setMessage(event.target.value)
@@ -47,7 +55,7 @@ function Chat() {
         <div className={styles.wrap}>
             <div className={styles.header}>
                 <div className={styles.title}>Комната: {params.room}</div>
-                <div className={styles.users}>{state.length} человек(а) в комнате</div>
+                <div className={styles.users}>{usersCount} человек(а) в комнате</div>
                 <button className={styles.left} onClick={leftRoom}>Выйти из комнаты</button>
             </div>
             <div className={styles.messages}>
