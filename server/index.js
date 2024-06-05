@@ -22,9 +22,10 @@ io.on('connection', (socket) => {
     socket.on('join', ({name, room}) => {
         socket.join(room)
 
-        const {user} = addUser({name, room})
+        const {user,isExist} = addUser({name, room})
+        let useMessage = isExist? `${user.name}, уже в чате`: `Добро пожаловать в чат ${user.name}`
         socket.emit('message', {
-            data: {user: {name: "Admin", message: `Привет ${user.name}`}}
+            data: {user: {name: "Admin", message: useMessage}}
         });
 
         socket.broadcast.to(user.room).emit('message',{
