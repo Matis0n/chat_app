@@ -3,7 +3,7 @@ const http = require('http')
 const {Server} = require('socket.io')
 const cors = require('cors')
 const route = require('./route')
-const {addUser} = require("./users");
+const {addUser, findUser} = require("./users");
 
 
 const app = express()
@@ -30,6 +30,15 @@ io.on('connection', (socket) => {
         socket.broadcast.to(user.room).emit('message',{
             data: {user: {name: "Admin", message: `${user.name} присоединил(ся/ась)`}}
         })
+    })
+
+    socket.on('sendMessage',({message,params})=>{
+        const user = findUser(params)
+
+        if(user){
+            io.to(user.room).emit('message',{data:{user:user,message}})
+        }
+
     })
 
     io.on('disconnect', () => {

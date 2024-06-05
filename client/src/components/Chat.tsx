@@ -1,12 +1,13 @@
 import {ChangeEvent, useEffect, useState} from "react";
 import {io} from 'socket.io-client';
 import {useLocation} from "react-router-dom";
-import {UserTypeFromServer, FieldsType} from "../types/types.ts";
+import {StateTypeFromServer, FieldsType} from "../types/types.ts";
 
 import styles from '../styles/Chat.module.css'
 import emoji from '../assets/img/emoji.svg'
 import EmojiPicker from "emoji-picker-react";
 import Messages from "./Messages.tsx";
+
 
 let socket = io('http://localhost:5000');
 
@@ -15,7 +16,7 @@ type searchParamsType = Record<string, string>
 function Chat() {
 
     const {search} = useLocation()
-    const [state, setState] = useState<UserTypeFromServer[]>([])
+    const [state, setState] = useState<StateTypeFromServer[]>([])
     const [params, setParams] = useState<FieldsType | searchParamsType>({name:'',room:''});
     const [message, setMessage] = useState<string>('')
     const [isOpen, setOpen] = useState<boolean>(false)
@@ -37,7 +38,13 @@ function Chat() {
     const leftRoom = () => {}
     const handleChange = (event:ChangeEvent<HTMLInputElement>) =>setMessage(event.target.value)
     const onEmojiClick = ({emoji}:{emoji:string}) => setMessage(`${message} ${emoji}`)
-    const handleSubmit = ()=>{}
+    const handleSubmit = (e:any)=>{
+        e.preventDefault()
+        if(!message) return
+        socket.emit('sendMessage', {message,params})
+        setMessage('')
+    }
+
     return (
         <div className={styles.wrap}>
             <div className={styles.header}>
@@ -48,7 +55,7 @@ function Chat() {
             <div className={styles.messages}>
                <Messages messages={state} name={params.name}></Messages>
             </div>
-            <form className={styles.form}>
+            <form className={styles.form} onSubmit={handleSubmit}>
                 <div className={styles.input}>
                     <input
                         type="text"
@@ -69,7 +76,7 @@ function Chat() {
                     )}
                 </div>
                 <div className={styles.button}>
-                    <input type="submit" onSubmit={handleSubmit} value="Отправить"/>
+                    <input type="submit" onClick={handleSubmit} value="Отправить"/>
                 </div>
             </form>
         </div>

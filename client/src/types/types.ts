@@ -8,6 +8,7 @@ export type UserType = {
     name:string,
     message:string
 }
-export type UserTypeFromServer = {
+export type StateTypeFromServer = {
     user:UserType
+    message:string
 }
