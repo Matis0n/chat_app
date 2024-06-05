@@ -3,7 +3,7 @@ const http = require('http')
 const {Server} = require('socket.io')
 const cors = require('cors')
 const route = require('./route')
-const {addUser, findUser, getRoomUsers} = require("./users");
+const {addUser, findUser, getRoomUsers, removeUser} = require("./users");
 
 
 const app = express()
@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
             data: {user: {name: "Admin", message: `${user.name} присоединил(ся/ась)`}}
         })
 
-        io.to(user.room).emit('joinRoom', {
+        io.to(user.room).emit('room', {
             data: {users: getRoomUsers(user.room)}
         })
     })
@@ -44,6 +44,17 @@ io.on('connection', (socket) => {
             io.to(user.room).emit('message', {data: {user: user, message}})
         }
     })
+
+    socket.on('leftRoom', ({params}) => {
+        const user = removeUser(params)
+
+        if (user) {
+            const {room, name} = user
+            io.to(room).emit('message', {data: {user: {name: "Admin",message: `${name} вышел из чата`}}})
+            io.to(room).emit('room', {data: {users: getRoomUsers(room)}})
+        }
+    })
+
 
     io.on('disconnect', () => {
         console.log('Отключение')

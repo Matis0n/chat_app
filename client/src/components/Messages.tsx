@@ -17,8 +17,11 @@ const Messages: FC<IProps> = ({messages, name}) => {
                 return (
                     <div key={index} className={`${styles.message} ${className}`}>
                         <span className={styles.user}>{user.name}</span>
-                        {user.name === "Admin" && <div className={styles.text}>{user.message}</div>
-                        || name && <div className={styles.text}>{message}</div>}
+                        {
+                            user.name === "Admin"
+                            ? <div className={styles.text}>{user.message}</div>
+                            : <div className={styles.text}>{message}</div>
+                        }
                     </div>
                 )
             })}
