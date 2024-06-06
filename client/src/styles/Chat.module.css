@@ -4,14 +4,14 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    color: #fff;
+    color: var(--color-white);
     padding: 15px 0;
 }
 
 .header {
     width: 100%;
-    color: #fff;
-    background: #0a4172;
+    color: var(--color-white);
+    background: var(--color-0a4172);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -31,20 +31,20 @@
 }
 
 .left {
-    background: rgb(197, 15, 15);
+    background: var(--color-warmRed);
     border-radius: 6px;
     font-size: 14px;
     padding: 10px;
-    color: #fff;
+    color: var(--color-white);
     cursor: pointer;
 }
 
 .form {
-    color: #fff;
+    color: var(--color-white);
     width: 100%;
     display: flex;
     align-items: center;
-    background: #0a4172;
+    background: var(--color-0a4172);
     justify-content: space-between;
     height: 150px;
     padding: 0 20px;
@@ -60,7 +60,7 @@
 .input input {
     width: 100%;
     height: 100%;
-    color: #fff;
+    color: var(--color-white);
     font-size: 18px;
     font-weight: 500;
 }
@@ -71,7 +71,7 @@
 
 .button input {
     cursor: pointer;
-    color: #fff;
+    color: var(--color-white);
 }
 
 .messages {
@@ -79,9 +79,9 @@
     height: calc(100% + 100px);
     flex-grow: 1;
     width: 100%;
-    color: #fff;
+    color: var(--color-white);
     font-size: 18px;
-    background: rgb(6, 37, 72);
+    background: var(--color-coldBlue);
     padding: 32px;
 }
 .messages::-webkit-scrollbar {
@@ -89,12 +89,12 @@
 }
 
 .messages::-webkit-scrollbar-thumb {
-    background: #0a4172;
+    background: var(--color-0a4172);
     border-radius: 10px;
 }
 
 .messages::-webkit-scrollbar-thumb:hover {
-    background: #0a4172;
+    background: var(--color-0a4172);
 }
 
 .emoji {

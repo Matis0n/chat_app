@@ -18,12 +18,12 @@
     padding: 10px;
     border-radius: 12px;
     font-size: 15px;
-    color: #fff;
+    background: var(--color-white);
 }
 
 .user {
     font-size: 14px;
-    color: rgb(176, 176, 176);
+    color: var(--color-d3cdcd);
 }
 
 .user {
@@ -31,7 +31,7 @@
 }
 
 .user .text {
-    background: #093823;
+    background: var(--color-093823);
 }
 
 .user .user {
@@ -43,7 +43,7 @@
 }
 
 .me .text {
-    background: #797470;
+    background: var(--color-797470);
 }
 
 .me .user {

@@ -1,11 +1,24 @@
+:root {
+    --color-warmBlue:rgb(11, 95, 187);
+    --color-coldRed:rgb(183, 70, 70);
+    --color-coldBlue:rgb(7, 39, 72);
+    --color-white:#fff;
+    --color-0d49d7:#0d49d7;
+    --color-d3cdcd:#d3cdcd;
+    --color-0a4172: #0a4172;
+    --color-warmRed:rgb(197, 15, 15);
+    --color-093823:#093823;
+    --color-797470:#797470;
+}
+
 body {
-    background: rgb(11, 95, 187);
+    background: var( --color-warmBlue);
     font-size: 16px;
     font-family: Rubik, Roboto, sans-serif;
     padding: 0;
     margin: 0;
     overflow-x: hidden;
-    color: rgb(183, 70, 70);
+    color: var(--color-coldRed);
 }
 
 h1,
@@ -35,13 +48,13 @@ button {
     border: none;
     background: none;
     outline: none;
-    color: rgb(14, 84, 155);
+    color: var( --color-warmBlue);
     font-size: 16px;
     font-family: Rubik, Roboto, sans-serif;
 }
 
 a {
-    color: rgb(7, 39, 72);
+    color: var( --color-coldBlue);
     text-decoration: none;
 }
 
