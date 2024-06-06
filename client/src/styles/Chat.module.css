@@ -76,7 +76,7 @@
 
 .messages {
     overflow: auto;
-    height: calc(100% + 100px);
+    height: 90%;
     flex-grow: 1;
     width: 100%;
     color: var(--color-white);

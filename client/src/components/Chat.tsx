@@ -41,7 +41,6 @@ function Chat() {
         })
     }, []);
 
-    console.log(state)
     const leftRoom = () => {
         socket.emit('leftRoom',{params})
         navigate('/')
